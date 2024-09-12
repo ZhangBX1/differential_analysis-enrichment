@@ -3,7 +3,7 @@ library(DESeq2)
 library(clusterProfiler)
 library(org.At.tair.db)
 library(enrichplot)
-countData <- as.matrix(read.csv("D://data//bac//4h.csv",row.names="Geneid"))
+countData <- as.matrix(read.csv("D://data//bac//4h.csv",row.names="Geneid")) # RNA-seq处理后导出的matrix文件
 
 countData <- countData[rowMeans(countData)>1,]
 
@@ -24,10 +24,9 @@ res1_up<- res1[which(res1$log2FoldChange >= 2 & res1$pvalue < 0.05),]      # 表
 res1_down<- res1[which(res1$log2FoldChange <= -2 & res1$pvalue < 0.05),]    # 表达量显著下降的基因
 res1_total <- rbind(res1_up,res1_down)
 
-write.csv(res1_down,"D://data//bac//down.csv")
-
-write.csv(res1_up,"D://data//bac//up.csv")
-write.csv(res1_total,"D://data//bac//total.csv")
+write.csv(res1_down,"D://data//bac//down.csv") # 下调基因导出的文件位置
+write.csv(res1_up,"D://data//bac//up.csv") # 上调基因导出的文件位置
+write.csv(res1_total,"D://data//bac//total.csv") # 差异基因导出的文件位置
 
 genes <- read.table('D://data//bac//geneid.txt', stringsAsFactors = FALSE)[,1]
 
